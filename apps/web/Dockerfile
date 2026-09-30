@@ -15,7 +15,7 @@ ARG VITE_COLLAB_SERVERS=http://localhost:4000
 ENV VITE_COLLAB_SERVERS=${VITE_COLLAB_SERVERS}
 RUN npm run build -w @canvas/shared && npm run build -w @canvas/web
 
-FROM nginx:1.27-alpine
+FROM nginx:1.31-alpine
 # Official nginx image renders /etc/nginx/templates/*.template with env vars at startup.
 ENV CSP_CONNECT_SRC="'self' http://localhost:4000 ws://localhost:4000"
 COPY apps/web/nginx.conf.template /etc/nginx/templates/default.conf.template
