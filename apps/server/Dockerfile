@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 # Build context: repository root (npm workspaces need the root lockfile).
 
-FROM node:20-alpine AS build
+FROM node:26-alpine AS build
 WORKDIR /repo
 COPY package.json package-lock.json tsconfig.base.json ./
 COPY packages/shared/package.json packages/shared/
@@ -14,7 +14,7 @@ COPY apps/server apps/server
 RUN npm run build -w @canvas/shared && npm run build -w @canvas/server \
  && npm prune --omit=dev --ignore-scripts
 
-FROM node:20-alpine AS runtime
+FROM node:26-alpine AS runtime
 ENV NODE_ENV=production
 WORKDIR /app
 COPY --from=build /repo/node_modules ./node_modules
