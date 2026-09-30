@@ -1,0 +1,54 @@
+{
+  "scenario": {
+    "url": "http://localhost:4200",
+    "editingUsers": 1000,
+    "observers": 100,
+    "boards": 100,
+    "usersPerBoard": 10,
+    "ratePerUser": 10,
+    "cursorHz": 0
+  },
+  "throughput": {
+    "editsSent": 100000,
+    "editPhaseSeconds": 10.04,
+    "editsPerSecond": 9962
+  },
+  "latencyMs": {
+    "count": 100000,
+    "mean": 14.7,
+    "p50": 14.6,
+    "p90": 25,
+    "p95": 26.4,
+    "p99": 30.4,
+    "max": 60.6
+  },
+  "convergenceAfterLastEditMs": {
+    "max": 108.3,
+    "p50": 67
+  },
+  "fanOut": {
+    "framesDeliveredToEditors": 369339,
+    "bytesDeliveredToEditors": 92495244,
+    "framesDeliveredToObservers": 37874,
+    "bytesSentByEditors": 9656764
+  },
+  "server": {
+    "cpuSeconds": 9.69,
+    "avgCpuPercentOfOneCore": 90,
+    "peakRssMB": 621,
+    "peakEventLoopLagP99Ms": 24.3
+  },
+  "reliability": {
+    "connected": 1100,
+    "failedConnects": 0,
+    "unexpectedDisconnects": 0,
+    "connectP95Ms": 169.5,
+    "expectedShapes": 20601,
+    "observersMatchingEditors": "100/100",
+    "lateJoinersMatchingEditors": "100/100",
+    "converged": true
+  },
+  "generatorHealth": {
+    "scheduleLagP99Ms": 5.7
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "name": "collaborative-canvas",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Multi-tenant, local-first, real-time collaborative canvas built on CRDTs.",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "tools/*"
+  ],
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "build:shared": "npm run build -w @canvas/shared",
+    "dev": "npm run build:shared && concurrently -k -n server,web -c blue,magenta \"npm run dev -w @canvas/server\" \"npm run dev -w @canvas/web\"",
+    "dev:cluster": "npm run build:shared && concurrently -k -n node-a,node-b,web -c blue,cyan,magenta \"PORT=4000 NODE_ID=node-a npm run dev -w @canvas/server\" \"PORT=4001 NODE_ID=node-b npm run dev -w @canvas/server\" \"VITE_COLLAB_SERVERS=http://localhost:4000,http://localhost:4001 npm run dev -w @canvas/web\"",
+    "infra:up": "docker compose up -d postgres redis jaeger",
+    "infra:down": "docker compose down",
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run build:shared && npm run typecheck --workspaces --if-present",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "npm run build:shared && npm run test --workspaces --if-present",
+    "test:e2e": "npm run build:shared && playwright test",
+    "db:migrate": "npm run migrate -w @canvas/server",
+    "load-test": "npm run start -w @canvas/load-test --"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.3",
+    "concurrently": "^9.2.4",
+    "eslint": "^10.11.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.7",
+    "globals": "^17.12.0",
+    "prettier": "^3.9.9",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.71.0",
+    "vitest": "^4.1.11"
+  }
+}
