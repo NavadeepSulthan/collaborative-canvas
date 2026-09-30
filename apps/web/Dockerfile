@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 # Build context: repository root.
 
-FROM node:20-alpine AS build
+FROM node:26-alpine AS build
 WORKDIR /repo
 COPY package.json package-lock.json tsconfig.base.json ./
 COPY packages/shared/package.json packages/shared/
